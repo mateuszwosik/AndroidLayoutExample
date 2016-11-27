@@ -1,6 +1,8 @@
 package mw.layoutexample.androidlayoutexample;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.RecyclerView;
@@ -36,9 +38,19 @@ public class MainActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onLongPress(View view, int position) {
-                adapter.removeAlbum(position);
-                adapter.notifyItemRemoved(position);
+            public void onLongPress(View view, final int position) {
+                final AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
+                builder.setTitle(getResources().getString(R.string.warning));
+                builder.setMessage(getResources().getString(R.string.removeItem));
+                builder.setNegativeButton(android.R.string.no, null);
+                builder.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        adapter.removeAlbum(position);
+                        adapter.notifyItemRemoved(position);
+                    }
+                });
+                builder.show();
             }
         }));
     }

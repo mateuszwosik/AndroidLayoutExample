@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">RecyclerViewExample</string>
     <string name="cover">Cover</string>
+    <string name="warning">Warning</string>
+    <string name="removeItem">Are you sure you want to delete this item?</string>
     <string-array name="the_better_life">
         <item>Kryptonite</item>
         <item>Loser</item>
