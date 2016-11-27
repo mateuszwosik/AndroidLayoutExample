@@ -1,7 +1,10 @@
 package mw.layoutexample.androidlayoutexample;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -10,4 +13,17 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
     }
+
+    public void click(View view){
+        TextView editText = (TextView)findViewById(R.id.editText);
+        Button button = (Button)view;
+        String text = editText.getText().toString() + button.getText() ;
+        editText.setText(text);
+    }
+
+    public void equals(View view){
+        TextView editText = (TextView)findViewById(R.id.editText);
+        editText.setText("");
+    }
+
 }
