@@ -30,7 +30,6 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-
     private ArrayList<Album> createAlbums(){
         ArrayList<Album> albums = new ArrayList<>(15);
         albums.add(new Album("3 Doors Down","The Better Life",R.drawable.better));

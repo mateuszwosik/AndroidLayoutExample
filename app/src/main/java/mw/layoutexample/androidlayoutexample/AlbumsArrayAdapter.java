@@ -11,12 +11,12 @@ import android.widget.TextView;
 
 import java.util.List;
 
-public class AlbumsArrayAdapter extends ArrayAdapter<Album> {
+class AlbumsArrayAdapter extends ArrayAdapter<Album> {
 
     private Activity context;
     private List<Album> albums;
 
-    public AlbumsArrayAdapter(Activity context, List<Album> albums) {
+    AlbumsArrayAdapter(Activity context, List<Album> albums) {
         super(context, R.layout.list_view_item, albums);
         this.context = context;
         this.albums = albums;
@@ -25,18 +25,30 @@ public class AlbumsArrayAdapter extends ArrayAdapter<Album> {
     @NonNull
     @Override
     public View getView(int position, View convertView, @NonNull ViewGroup parent) {
-        LayoutInflater layoutInflater = context.getLayoutInflater();
-        View rowView = layoutInflater.inflate(R.layout.list_view_item, null, true);
-
-        ImageView imageView = (ImageView)rowView.findViewById(R.id.coverImageView);
-        TextView artistTextView = (TextView)rowView.findViewById(R.id.artistTextView);
-        TextView titleTextView = (TextView)rowView.findViewById(R.id.titleTextView);
+        ViewHolder viewHolder;
+        View rowView = convertView;
+        if (rowView == null) {
+            LayoutInflater layoutInflater = context.getLayoutInflater();
+            rowView = layoutInflater.inflate(R.layout.list_view_item, null, true);
+            viewHolder = new ViewHolder();
+            viewHolder.imageView = (ImageView)rowView.findViewById(R.id.coverImageView);
+            viewHolder.artistTextView = (TextView)rowView.findViewById(R.id.artistTextView);
+            viewHolder.titleTextView = (TextView)rowView.findViewById(R.id.titleTextView);
+            rowView.setTag(viewHolder);
+        } else {
+            viewHolder = (ViewHolder)rowView.getTag();
+        }
         Album album = albums.get(position);
-
-        imageView.setImageResource(album.getCover());
-        artistTextView.setText(album.getArtist());
-        titleTextView.setText(album.getTitle());
+        viewHolder.imageView.setImageResource(album.getCover());
+        viewHolder.artistTextView.setText(album.getArtist());
+        viewHolder.titleTextView.setText(album.getTitle());
 
         return rowView;
+    }
+
+    private static class ViewHolder {
+        private ImageView imageView;
+        private TextView artistTextView;
+        private TextView titleTextView;
     }
 }
